@@ -18,6 +18,9 @@ import Icon  from 'react-native-vector-icons/FontAwesome'
 import PeopleIndexScreen from './app/screens/PeopleIndexScreen'
 import PersonShowScreen from './app/screens/PersonShowScreen'
 
+import PersonReducer from './app/reducers/PersonReducer'
+import PersonListReducer from './app/reducers/PersonListReducer'
+
 
 
 class teammanager extends Component {
