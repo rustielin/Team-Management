@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -11,50 +5,69 @@ import {
   Text,
   View,
   Image,
-  TouchableHighlight
-} from 'react-native';
+  ListView,
+  TouchableOpacity,
+  Navigator
+} from 'react-native'
 
-import Person from './app/components/Person/Person';
+import ViewContainer from './app/components/ViewContainer'
+import StatusBarBackground from './app/components/StatusBarBackground'
+import _ from 'lodash'
+import Icon  from 'react-native-vector-icons/FontAwesome'
 
-export default class teammanager extends Component {
+import PeopleIndexScreen from './app/screens/PeopleIndexScreen'
+import PersonShowScreen from './app/screens/PersonShowScreen'
 
-  this.addPerson = function() {
 
-  },
+
+class teammanager extends Component {
+
+    _renderScene(route, navigator) {
+        var globalNavigatorProps = {
+            navigator: navigator
+        }
+
+        switch(route.ident) {
+            case "PeopleIndex":
+                return (
+                    <PeopleIndexScreen {...globalNavigatorProps}/>
+                )
+
+            case "PersonShow":
+                return (
+                    <PersonShowScreen
+                        {...globalNavigatorProps}
+                        person={route.person}
+                    />
+                )
+
+            default:
+                return (
+                    <Text>"Oops..."</Text>
+                )
+
+
+        }
+    }
 
   render() {
     return (
-      <View style={{flexDirection: 'row'}}>
-        <TouchableHighlight style={styles.top_right} onPress={this.addPerson}>
-          <Image source={require('./img/plus.png')}/>
-        </TouchableHighlight>
-        <Text>Team members</Text>
-        <Text>You have team members.</Text>
-      </View>
-    );
+        <Navigator
+            initialRoute={{ident: "PeopleIndex"}}
+            ref="appNavigator"
+            style={styles.navigatorStyles}
+            renderScene={this._renderScene}
+        />
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  top_right: {
-    justifyContent: 'flex-end'
-  }
+
+    navigatorStyles: {
+
+    }
+
 });
 
 AppRegistry.registerComponent('teammanager', () => teammanager);
