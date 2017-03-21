@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import React, {
+import {
     AppRegistry,
     Component,
     StyleSheet,
@@ -9,34 +9,45 @@ import React, {
     Dimensions,
     TouchableOpacity,
     StatusBar,
+    ListView,
     ScrollView
-}
+} from 'react-native'
 
 import Person from './Person'
 
-PersonList.propTypes = {
-  people: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    isAdmin: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
-  }).isRequired).isRequired
+class PersonList extends React.Component {
+
+    componentWillMount() {
+        this.dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2
+        });
+    }
+
+    render() {
+        var dataSource = this.dataSource.cloneWithRows(this.props.items);
+        return (
+            <ListView
+                dataSource={dataSource}
+                renderRow={(rowData, sectionID, rowID) =>
+                    <Person item={rowData}
+                    onPress={() => this.props.onPressItem(rowData, rowID)} />
+                }
+
+            />
+        )
+    }
+
 }
 
-const styles = StyleSheet.create({
-    container : {
-        paddingTop      : 30,
-        justifyContent  : 'center',
-        alignItems      : 'center',
-        backgroundColor : '#F5FCFF',
-        flexDirection   : 'row',
-        flexWrap        : 'wrap'
-    }
-});
+// TOOD: proptypes later and also refactor items / people
+// PersonList.propTypes = {
+//     people: PropTypes.arrayOf(PropTypes.shape({
+//         id: PropTypes.number.isRequired,
+//         isAdmin: PropTypes.bool.isRequired,
+//         text: PropTypes.string.isRequired
+//     }).isRequired).isRequired,
+//     onPersonClick: PropTypes.func.isRequired
+// }
 
-class PersonList extends Component {
-    buildPeople(data) {
-        
-    }
-}
 
-export default PersonList
+module.exports = PersonList

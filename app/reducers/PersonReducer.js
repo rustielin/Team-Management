@@ -1,25 +1,16 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore } from 'react-redux';
 
-const userReducer = (state={}, action) => {
+const PersonReducer = (state={items: []}, action) => {
     switch(action.type) {
-        case "CHANGE_FIRSTNAME": {
-            state = {...state, firstName: action.payload}
+        case "UPDATE_PERSON": {
+            state = {...state, items: action.payload}
+        }
+        case "ADD_PERSON": {
+            state = {...state, items: action.payload}
             break;
         }
-        case "CHANGE_LASTNAME": {
-            state = {...state, lastName: action.payload}
-            break;
-        }
-        case "CHANGE_EMAIL": {
-            state = {...state, email: action.payload}
-            break;
-        }
-        case "CHANGE_PHONE_NUMBER": {
-            state = {...state, phoneNumber: action.payload}
-            break;
-        }
-        case "CHANGE_IS_ADMIN": {
-            state = {...state, isAdmin: action.payload}
+        case "DELETE_PERSON": {
+            state = {...state, items: action.payload}
             break;
         }
     }

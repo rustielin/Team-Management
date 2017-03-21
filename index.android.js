@@ -1,76 +1,87 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ListView,
-  TouchableOpacity,
-  Navigator
+  Navigator,
+  Text
 } from 'react-native'
 
-import ViewContainer from './app/components/ViewContainer'
-import StatusBarBackground from './app/components/StatusBarBackground'
 import _ from 'lodash'
-import Icon  from 'react-native-vector-icons/FontAwesome'
 
-import PeopleIndexScreen from './app/screens/PeopleIndexScreen'
-import PersonShowScreen from './app/screens/PersonShowScreen'
 
-import PersonReducer from './app/reducers/PersonReducer'
-import PersonListReducer from './app/reducers/PersonListReducer'
 
+import PersonListContainer from './app/components/PersonListContainer'
+import PersonList from './app/components/PersonList'
+import PersonEdit from './app/components/PersonEdit'
+import Person from './app/components/Person'
+
+import reducer from './app/reducers'
+
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { Provider, connect } from 'react-redux'
+
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+
+
+
+// only log when dev
+const loggerMiddleWare = createLogger({ predicate: (getState, action) => __DEV__});
+
+function configureStore(initialState) {
+    const enhancer = compose(
+        applyMiddleware(
+            thunkMiddleware,
+            loggerMiddleWare,
+        ),
+    );
+    return createStore(reducer, initialState, enhancer);
+}
+
+// initial stuff later?
+const store = configureStore()
 
 
 class teammanager extends Component {
 
     _renderScene(route, navigator) {
         var globalNavigatorProps = {
-            navigator: navigator
+            navigator: navigator,
         }
 
         switch(route.ident) {
-            case "PeopleIndex":
+            case "PersonListContainer":
                 return (
-                    <PeopleIndexScreen {...globalNavigatorProps}/>
+                    <PersonListContainer {...globalNavigatorProps} />
                 )
 
-            case "PersonShow":
+            case "PersonEdit":
+
                 return (
-                    <PersonShowScreen
-                        {...globalNavigatorProps}
-                        person={route.person}
-                    />
+                    <PersonEdit {...Object.assign({}, globalNavigatorProps, route.passProps)} />
                 )
 
             default:
                 return (
                     <Text>"Oops..."</Text>
                 )
-
-
         }
     }
 
   render() {
+
     return (
-        <Navigator
-            initialRoute={{ident: "PeopleIndex"}}
-            ref="appNavigator"
-            style={styles.navigatorStyles}
-            renderScene={this._renderScene}
-        />
+        <Provider store={store}>
+            <Navigator
+                initialRoute={{ident: "PersonListContainer"}}
+                ref="appNavigator"
+                renderScene={this._renderScene}
+            />
+            {/* <Text>alskdjf</Text> */}
+        </Provider>
+
     )
   }
 }
 
-const styles = StyleSheet.create({
-
-    navigatorStyles: {
-
-    }
-
-});
-
+// App ?
 AppRegistry.registerComponent('teammanager', () => teammanager);
