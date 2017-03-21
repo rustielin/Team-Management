@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 
 
-import PersonListContainer from './app/components/PersonListContainer'
+import PersonListContainerClass from './app/components/PersonListContainer'
 import PersonList from './app/components/PersonList'
 import PersonEdit from './app/components/PersonEdit'
 import Person from './app/components/Person'
@@ -49,9 +49,9 @@ class teammanager extends Component {
         }
 
         switch(route.ident) {
-            case "PersonListContainer":
+            case "PersonListContainerClass":
                 return (
-                    <PersonListContainer {...globalNavigatorProps} />
+                    <PersonListContainerClass {...globalNavigatorProps} />
                 )
 
             case "PersonEdit":
@@ -72,7 +72,7 @@ class teammanager extends Component {
     return (
         <Provider store={store}>
             <Navigator
-                initialRoute={{ident: "PersonListContainer"}}
+                initialRoute={{ident: "PersonListContainerClass"}}
                 ref="appNavigator"
                 renderScene={this._renderScene}
             />

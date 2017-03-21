@@ -18,15 +18,15 @@ import PersonEdit from './PersonEdit'
 import { bindActionCreators } from 'redux'
 import { Provider, connect } from 'react-redux'
 
-import * as ActionCreators from '../actions'
-
+// import addPerson from '../actions'
+import ActionCreators from '../actions'
 
 import * as user from '../actions/userActions'
 
-class PersonListContainer extends React.Component {
+class PersonListContainerClass extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.deleteItem = this.deleteItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
         this.openItem = this.openItem.bind(this);
@@ -43,12 +43,13 @@ class PersonListContainer extends React.Component {
         var items = this.state.items;
         if (index) {
             // update
-            items[index] = item;
-            this.props.updatePerson();
+            this.props.updatePerson(index, item, items);
         }
         else {
             // add
-            this.props.addPerson();
+            // this.props.addPerson(item, items);
+            this.props.addPerson(item, items);
+
         }
         // this.setState({items: items});
         // this.props.store.dispatch(user.updatePerson(items));
@@ -88,4 +89,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 
-module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);
+// module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);
+export default connect(() => { return {} }, mapDispatchToProps)(PersonListContainerClass);
+// const PersonListContainer = connect()(PersonListContainerClass)
+//
+// export default PersonListContainer

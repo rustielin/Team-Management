@@ -8,4 +8,4 @@ const reducer = combineReducers({
     PersonReducer
 })
 
-module.exports = reducer
+export default reducer
