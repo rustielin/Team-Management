@@ -6,27 +6,19 @@ import {
   StyleSheet
 } from 'react-native'
 
-import _ from 'lodash'
-
-
-
 import PersonListContainerClass from './app/components/PersonListContainer'
-import PersonList from './app/components/PersonList'
 import PersonEdit from './app/components/PersonEdit'
 import PersonAdd from './app/components/PersonAdd'
-import Person from './app/components/Person'
-
 import reducer from './app/reducers'
-
 import styles from './app/styles'
 
+// redux stuff
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider, connect } from 'react-redux'
 
+// some useful middlware
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-
-
 
 // only log when dev
 const loggerMiddleWare = createLogger({ predicate: (getState, action) => __DEV__});
@@ -41,7 +33,6 @@ function configureStore(initialState) {
     return createStore(reducer, initialState, enhancer);
 }
 
-// initial stuff later?
 const store = configureStore()
 
 
@@ -53,9 +44,8 @@ class teammanager extends Component {
         }
 
         switch(route.ident) {
-            case "PersonListContainerClass":
+            case "PersonListContainer":
                 return (
-                    // <PersonListContainerClass {...globalNavigatorProps, items: [{txt: 'aaaaaa', completed: true}]} />
                     <PersonListContainerClass {...Object.assign({}, globalNavigatorProps, route.items)} />
                 )
 
@@ -77,24 +67,18 @@ class teammanager extends Component {
 
   render() {
 
+    // tell us where to go
     return (
         <Provider store={store}>
             <Navigator
-                initialRoute={{ident: "PersonListContainerClass",
-
-                    items: [{txt: 'aaaaaa', completed: true}]
-                }}
+                initialRoute={{ident: "PersonListContainer"}}
                 ref="appNavigator"
                 renderScene={this._renderScene}
                 style={styles.buffered}
             />
-            {/* <Text>alskdjf</Text> */}
         </Provider>
-
     )
   }
 }
 
-
-// App ?
 AppRegistry.registerComponent('teammanager', () => teammanager);

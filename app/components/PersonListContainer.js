@@ -1,3 +1,5 @@
+// PersonListContainer has all the useful functions to add/remove/update users
+
 import React, { PropTypes } from 'react'
 import {
     AppRegistry,
@@ -19,7 +21,7 @@ import PersonEdit from './PersonEdit'
 import { bindActionCreators } from 'redux'
 import { Provider, connect } from 'react-redux'
 
-// import addPerson from '../actions'
+// useful stuff
 import ActionCreators from '../actions'
 
 import * as user from '../actions/userActions'
@@ -38,7 +40,7 @@ class PersonListContainerClass extends React.Component {
     }
 
     openItem(rowData, rowID) {
-        console.log("Opening Item")
+        console.log("Opening item")
 
         this.props.navigator.push({
             ident: 'PersonEdit',
@@ -47,17 +49,14 @@ class PersonListContainerClass extends React.Component {
     }
 
     deleteItem(index) {
+        console.log("Delete item")
         this.props.deletePerson(index)
         this.props.navigator.pop();
     }
 
     updateItem(index, item) {
-        console.log("update item")
-        console.log(item);
-        console.log(this.props.items);
-
+        console.log("Update item")
         this.props.updatePerson(index, item)
-        console.log(this.props.items)
         this.props.navigator.pop();
     }
 
@@ -66,9 +65,9 @@ class PersonListContainerClass extends React.Component {
         this.props.navigator.pop();
     }
 
+    // passes addItemFunc as a prop
     addItem(item) {
         console.log("Add Item");
-
         this.props.navigator.push({
             ident: 'PersonAdd',
             passProps: {add: this.addItemFunc}
@@ -76,13 +75,9 @@ class PersonListContainerClass extends React.Component {
 
     }
 
-
-
-
     render() {
         return (
             <View>
-
                 <PersonList
                     items={this.props.items}
                     onHeaderAdd={this.addItem}
@@ -94,7 +89,7 @@ class PersonListContainerClass extends React.Component {
 }
 
 
-
+// connect everything
 
 const mapStateToProps = (state) => {
     return {

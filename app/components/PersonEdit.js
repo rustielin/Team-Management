@@ -15,6 +15,7 @@ import {
     ScrollView
 } from 'react-native'
 
+// a nice looking multiple choice 
 import  MultipleChoice  from 'react-native-multiple-choice'
 import styles from '../styles'
 
@@ -28,7 +29,6 @@ var Person = t.struct({
     email: t.Str,
     phoneNumber: t.Str,
 });
-
 
 var options = {
     auto: 'none', // no default labels/placeholders

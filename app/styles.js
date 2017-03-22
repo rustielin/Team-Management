@@ -5,6 +5,7 @@ var styles = StyleSheet.create({
   separator: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#8E8E8E',
+    paddingRight: 15
   },
 
   title: {
@@ -44,13 +45,15 @@ var styles = StyleSheet.create({
   },
 
   buttonContainer: {
-      paddingTop: 20,
+      padding: 20,
       flexDirection: 'row',
       justifyContent: 'space-between'
   },
 
   buffered: {
-      padding: 15
+    paddingTop: 10,
+    paddingLeft: 15,
+    paddingRight: 10
   },
 
   screen: {

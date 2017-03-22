@@ -5,8 +5,8 @@ export const updatePerson = (index, item) => {
     return {
         type: types.UPDATE_PERSON,
         payload: {
-            index,
-            item
+            index: parseInt(index), // is there a better way of doing this?
+            item: item
         }
     }
 
@@ -22,6 +22,6 @@ export const addPerson = (item) => {
 export const deletePerson = (index) => {
     return {
         type: types.DELETE_PERSON,
-        payload: index
+        payload: parseInt(index)
     }
 }

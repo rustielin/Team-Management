@@ -1,56 +1,53 @@
 
+import * as types from '../types'
 const initialState = [
         {
-            key: 0,
             firstName: 'Rustie',
-            lastName: 'lin',
-            email: 'rustieli@berkeley.edu',
+            lastName: 'Lin',
+            email: 'rustielin@berkeley.edu',
             phoneNumber: '510-676-0295',
             isAdmin: true
         },
         {
-            key: 1,
             firstName: 'Frank',
-            lastName: 'lin',
-            email: 'rustieli@berkeley.edu',
-            phoneNumber: '510-676-0295',
+            lastName: 'Smith',
+            email: 'fs@yahoo.com',
+            phoneNumber: '408-111-3321',
             isAdmin: true
         },
         {
-            key: 2,
-            firstName: 'BOOBOBOBOBO',
-            lastName: 'lin',
-            email: 'rustieli@berkeley.edu',
-            phoneNumber: '510-676-0295',
-            isAdmin: false
-        }
-
+            firstName: 'Joe',
+            lastName: 'Ramsay',
+            email: 'joerrr@hotmail.com',
+            phoneNumber: '408-394-3321',
+            isAdmin: true
+        },
 ]
 
 const PersonReducer = (state=initialState, action) => {
     switch(action.type) {
-        // ../types.UPDATE_PERSON?
-        case "UPDATE_PERSON": {
-            return [
-                ...state.slice(0, action.payload.index),
-                (action.payload.item),
-                ...state.slice(action.payload.index+1)
-            ]
-            alert(action.payload.index);
 
-            break;
-        }
-        case "ADD_PERSON": {
-            return [
+        case types.ADD_PERSON: {
+            state = [
                 ...state,
                 action.payload
             ]
             break;
         }
-        case "DELETE_PERSON": {
-            return [
+        case types.DELETE_PERSON: {
+
+            state = [
                 ...state.slice(0, action.payload),
                 ...state.slice(action.payload + 1)
+            ]
+
+            break;
+        }
+        case types.UPDATE_PERSON: {
+            state = [
+                ...state.slice(0, action.payload.index),
+                (action.payload.item),
+                ...state.slice(action.payload.index+1)
             ]
             break;
         }

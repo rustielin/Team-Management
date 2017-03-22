@@ -17,6 +17,7 @@ import {
 } from 'react-native'
 
 import styles from '../styles'
+// nice looking multiple choice
 import  MultipleChoice  from 'react-native-multiple-choice'
 
 var t = require('tcomb-form-native');
@@ -117,16 +118,12 @@ class PersonAdd extends React.Component {
 
                 />
 
-                <View style={styles.buttonContainer}>
-
-                    <TouchableOpacity style={styles.saveButton}>
-                        <Button
-                            onPress={this.onAdd}
-                            title="Save"
-                        />
-                    </TouchableOpacity>
-
-                </View>
+                <TouchableOpacity style={[styles.saveButton, {padding: 20}]}>
+                    <Button
+                        onPress={this.onAdd}
+                        title="Save"
+                    />
+                </TouchableOpacity>
 
             </View>
         )

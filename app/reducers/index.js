@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import PersonListReducer from './PersonListReducer'
 import PersonReducer from './PersonReducer'
 
 
