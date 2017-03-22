@@ -4,7 +4,9 @@ A simple team-member management application using ReactNative/Redux that allows 
 ## Installation
 ```
 git clone https://github.com/rustielin/Team-Management.git
+
 cd Team-Management
+
 npm install teammanager
 ```
 Uses the following dependencies:
