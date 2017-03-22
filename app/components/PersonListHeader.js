@@ -13,21 +13,24 @@ import {
     ScrollView
 } from 'react-native'
 
+import styles from '../styles'
+
 class PersonListHeader extends React.Component {
     render() {
         return (
-            <View>
-                <Text>THIS IS A HEADER</Text>
-
+            <View style={styles.screen}>
                 <TouchableOpacity
+                    style={styles.addButton}
                     underlayColor='#99d9f4'
                     onPress={this.props.addItem}>
                     <Image source={require('../../img/plus.png')}/>
                 </TouchableOpacity>
 
-                <Text>Team members</Text>
-                <Text>You have {this.props.items.length} team members.</Text>
-                <Text>_____________________________</Text>
+                <Text style={styles.title}>Team members</Text>
+                <Text style={styles.subtitle}>You have {this.props.items.length} team members.</Text>
+
+                <View style={styles.separator} />
+
             </View>
         )
     }

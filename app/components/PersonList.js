@@ -15,6 +15,8 @@ import {
 
 import Person from './Person'
 import PersonListHeader from './PersonListHeader'
+import styles from '../styles'
+
 
 class PersonList extends React.Component {
 
@@ -36,7 +38,7 @@ class PersonList extends React.Component {
                     addItem={this.props.onHeaderAdd}/>}
 
                 renderSeparator={(sectionID, rowID, adjacentRowHighlighted) =>
-                    <Text>____________</Text>}
+                    <View key={rowID} style={styles.separator} />}
 
                 renderRow={(rowData, sectionID, rowID) =>
                     <Person
@@ -50,16 +52,6 @@ class PersonList extends React.Component {
     }
 
 }
-
-// TOOD: proptypes later and also refactor items / people
-// PersonList.propTypes = {
-//     people: PropTypes.arrayOf(PropTypes.shape({
-//         id: PropTypes.number.isRequired,
-//         isAdmin: PropTypes.bool.isRequired,
-//         text: PropTypes.string.isRequired
-//     }).isRequired).isRequired,
-//     onPersonClick: PropTypes.func.isRequired
-// }
 
 
 module.exports = PersonList

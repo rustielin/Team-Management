@@ -10,6 +10,8 @@ import {
 
 import _ from 'lodash'
 
+import styles from '../styles'
+
 
 class Person extends React.Component {
     render() {
@@ -26,15 +28,18 @@ class Person extends React.Component {
         return (
             <View>
                 <TouchableOpacity
+                    style={styles.info}
                     onPress={this.props.onPress}>
-                    <View>
-                        <Text>
+                    <Image style={styles.profPic} source={require('../../img/person.png')}/>
+
+                    <View >
+                        <Text style={styles.infoName}>
                             {`${_.capitalize(person.firstName)} ${_.capitalize(person.lastName)}`} {admin}
                         </Text>
-                        <Text>
+                        <Text style={styles.infoText}>
                             {person.phoneNumber}
                         </Text>
-                        <Text>
+                        <Text style={styles.infoText}>
                             {person.email}
 
                         </Text>
@@ -45,13 +50,6 @@ class Person extends React.Component {
     }
 }
 
-// Person.propTypes = {
-//     onPress: PropTypes.func.isRequired,
-//     firstName: PropTypes.string.isRequired,
-//     lastName: PropTypes.string.isRequired,
-//     email: PropTypes.string.isRequired,
-//     phoneNumber: PropTypes.string.isRequired,
-//     isAdmin: PropTypes.bool.isRequired
-// }
+
 
 module.exports = Person

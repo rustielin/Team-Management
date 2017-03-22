@@ -16,7 +16,7 @@ import {
 } from 'react-native'
 
 import  MultipleChoice  from 'react-native-multiple-choice'
-
+import styles from '../styles'
 
 var t = require('tcomb-form-native');
 
@@ -34,7 +34,6 @@ var options = {
     auto: 'none', // no default labels/placeholders
     fields: {
         firstName: {
-            error: 'Need a first name',
             placeholder: 'First name',
             placeholderTextColor: '#9E9E9E',
 
@@ -100,15 +99,21 @@ class PersonEdit extends React.Component {
     render() {
         this.isAdmin = this.props.item.isAdmin;
         return (
-            <View>
+            <View style={styles.whole}>
 
                 {/* get me outta here */}
                 <TouchableOpacity
+                    style={styles.exitButton}
                     onPress={() => { return this.props.navigator.pop() }}>
                     <Image source={require('../../img/delete.png')}/>
                 </TouchableOpacity>
 
-                <Text>Info</Text>
+                <Text style={styles.title}>Edit team member</Text>
+                <Text style={styles.subtitle}>Edit contact info and role</Text>
+
+                <View style={styles.separator} />
+
+                <Text style={styles.formHeader}>Info</Text>
 
                 <Form
                     ref="form"
@@ -117,7 +122,7 @@ class PersonEdit extends React.Component {
                     options={options}
                     value={this.props.item} />
 
-                <Text>Role</Text>
+                <Text style={styles.formHeader}>Role</Text>
 
                 <MultipleChoice
                     options={[
@@ -130,22 +135,27 @@ class PersonEdit extends React.Component {
 
                 />
 
-                {/* save  */}
-                <TouchableOpacity>
-                    <Button
+                <View style={styles.buttonContainer}>
 
-                        onPress={this.onUpdate}
-                        title="Save"
-                    />
-                </TouchableOpacity>
+                    {/* delete */}
+                    <TouchableOpacity style={styles.deleteButton}>
+                        <Button
+                            color='red'
+                            onPress={this.onDelete}
+                            title="Delete"
+                        />
+                    </TouchableOpacity>
 
-                {/* delete */}
-                <TouchableOpacity>
-                    <Button
-                        onPress={this.onDelete}
-                        title="Delete"
-                    />
-                </TouchableOpacity>
+                    {/* save  */}
+                    <TouchableOpacity style={styles.saveButton} >
+                        <Button
+                            onPress={this.onUpdate}
+                            title="Save"
+                        />
+                    </TouchableOpacity>
+                </View>
+
+
             </View>
         )
     }

@@ -16,6 +16,7 @@ import {
     Picker
 } from 'react-native'
 
+import styles from '../styles'
 import  MultipleChoice  from 'react-native-multiple-choice'
 
 var t = require('tcomb-form-native');
@@ -33,7 +34,6 @@ var options = {
     auto: 'none', // no default labels/placeholders
     fields: {
         firstName: {
-            error: 'Need a first name',
             placeholder: 'First name',
             placeholderTextColor: '#9E9E9E',
 
@@ -67,7 +67,7 @@ class PersonAdd extends React.Component {
 
     onAdd() {
         var value = this.refs.form.getValue();
-    
+
         if (value) {
             this.props.add(Object.assign({}, value, {isAdmin: this.isAdmin}));
         }
@@ -83,22 +83,28 @@ class PersonAdd extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.whole}>
 
                 {/* get me outta here */}
                 <TouchableOpacity
+                    style={styles.exitButton}
                     onPress={() => { return this.props.navigator.pop() }}>
                     <Image source={require('../../img/delete.png')}/>
                 </TouchableOpacity>
 
-                <Text>Info</Text>
+                <Text style={styles.title}>Add a team member</Text>
+                <Text style={styles.subtitle}>Set contact info and role</Text>
+
+                <View style={styles.separator} />
+
+                <Text style={styles.formHeader}>Info</Text>
                 <Form
                     ref="form"
                     type={Person}
                     onChange={this._onChange}
                     options={options}   />
 
-                <Text>Role</Text>
+                <Text style={styles.formHeader}>Role</Text>
 
                 <MultipleChoice
                     options={[
@@ -111,29 +117,20 @@ class PersonAdd extends React.Component {
 
                 />
 
+                <View style={styles.buttonContainer}>
 
-                <TouchableOpacity style={styles.saveButton}>
-                    <Button
+                    <TouchableOpacity style={styles.saveButton}>
+                        <Button
+                            onPress={this.onAdd}
+                            title="Save"
+                        />
+                    </TouchableOpacity>
 
-                        onPress={this.onAdd}
-                        title="Save"
-                    />
-
-                </TouchableOpacity>
-
-
+                </View>
 
             </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    saveButton: {
-        height: 36,
-        width: 70,
-        marginLeft: 10,
-    }
-});
 
 module.exports = PersonAdd

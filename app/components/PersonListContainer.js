@@ -81,7 +81,7 @@ class PersonListContainerClass extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View>
 
                 <PersonList
                     items={this.props.items}
@@ -92,6 +92,7 @@ class PersonListContainerClass extends React.Component {
         )
     }
 }
+
 
 
 
@@ -111,18 +112,3 @@ const PersonListContainer = connect (
 )(PersonListContainerClass);
 
 export default PersonListContainer;
-
-// dispatch to entire application
-// function mapDispatchToProps(dispatch) {
-//     return bindActionCreators(ActionCreators, dispatch);
-// }
-
-// module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);
-// export default connect((state) => {
-//     return {
-//         items: state.items
-//     }
-// }, mapDispatchToProps)(PersonListContainerClass);
-// const PersonListContainer = connect()(PersonListContainerClass)
-//
-// export default PersonListContainer

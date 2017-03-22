@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   Navigator,
-  Text
+  Text,
+  StyleSheet
 } from 'react-native'
 
 import _ from 'lodash'
@@ -16,6 +17,8 @@ import PersonAdd from './app/components/PersonAdd'
 import Person from './app/components/Person'
 
 import reducer from './app/reducers'
+
+import styles from './app/styles'
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider, connect } from 'react-redux'
@@ -83,6 +86,7 @@ class teammanager extends Component {
                 }}
                 ref="appNavigator"
                 renderScene={this._renderScene}
+                style={styles.buffered}
             />
             {/* <Text>alskdjf</Text> */}
         </Provider>
@@ -90,6 +94,7 @@ class teammanager extends Component {
     )
   }
 }
+
 
 // App ?
 AppRegistry.registerComponent('teammanager', () => teammanager);
