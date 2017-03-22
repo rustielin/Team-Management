@@ -1,5 +1,9 @@
 # Team-Management
-A simple team-member management application using ReactNative/Redux that allows the user  to view, edit, add, and delete team members.
+A simple team-member management application that allows the user to view, edit, add, and delete team members. Instawork fontend take-home assignment!
+
+## Features
+* Native mobile app built with React Native 
+* Application state managed in Redux
 
 ## Installation
 ```
