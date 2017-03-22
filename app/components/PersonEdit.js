@@ -67,12 +67,12 @@ class PersonEdit extends React.Component {
 
     onUpdate() {
         var value = this.refs.form.getValue();
-        alert(this.props.id);
-
+        console.log(Object.assign({}, value, {isAdmin: this.isAdmin}));
+        console.log("overwriting" + this.props.id)
         if (value) {
-            this.props.update(Object.assign({}, value, {isAdmin: this.isAdmin}), this.props.id);
+            // put the admin value back in
+            this.props.update(this.props.id, Object.assign({}, value, {isAdmin: this.isAdmin}));
         }
-        console.log(this.ident);
     }
 
     onDelete() {
@@ -99,8 +99,6 @@ class PersonEdit extends React.Component {
 
     render() {
         this.isAdmin = this.props.item.isAdmin;
-
-
         return (
             <View>
 

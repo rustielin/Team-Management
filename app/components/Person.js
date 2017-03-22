@@ -36,7 +36,7 @@ class Person extends React.Component {
                         </Text>
                         <Text>
                             {person.email}
-                            
+
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -45,13 +45,13 @@ class Person extends React.Component {
     }
 }
 
-Person.propTypes = {
-    onPress: PropTypes.func.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
-    isAdmin: PropTypes.bool.isRequired
-}
+// Person.propTypes = {
+//     onPress: PropTypes.func.isRequired,
+//     firstName: PropTypes.string.isRequired,
+//     lastName: PropTypes.string.isRequired,
+//     email: PropTypes.string.isRequired,
+//     phoneNumber: PropTypes.string.isRequired,
+//     isAdmin: PropTypes.bool.isRequired
+// }
 
 module.exports = Person

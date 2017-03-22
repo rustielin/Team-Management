@@ -29,14 +29,19 @@ class PersonList extends React.Component {
         return (
             <ListView
                 dataSource={dataSource}
+
                 renderHeader={() =>
                 <PersonListHeader
                     items={this.props.items}
                     addItem={this.props.onHeaderAdd}/>}
+
                 renderSeparator={(sectionID, rowID, adjacentRowHighlighted) =>
                     <Text>____________</Text>}
+
                 renderRow={(rowData, sectionID, rowID) =>
-                    <Person item={rowData}
+                    <Person
+                    key={rowID}
+                    item={rowData}
                     onPress={() => this.props.onPressItem(rowData, rowID)} />
                 }
 

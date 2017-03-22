@@ -7,7 +7,6 @@ import PersonReducer from './PersonReducer'
 // calls reducers with slices of state according to keys
 const reducer = combineReducers({
     items: PersonReducer
-    // items: PersonReducer
 })
 
 export default reducer

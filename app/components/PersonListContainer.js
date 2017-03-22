@@ -47,36 +47,23 @@ class PersonListContainerClass extends React.Component {
     }
 
     deleteItem(index) {
-        // var items = this.state.items;
-        // items.splice(index, 1);
-        // this.setState({items: items})
         this.props.deletePerson(index)
         this.props.navigator.pop();
-
     }
 
-    updateItem(item, index) {
-        // var items = this.state.items;
-        // if (index) {
-            // update
-            // this.props.updatePerson(index, item, this.props.items);
-            this.props.updatePerson(index, item)
-        // }
-        // else {
-        //     // add
-        //     // this.props.addPerson(item, items);
-        //     this.props.addPerson(item);
-        //
-        // }
-        // this.setState({items: items});
-        // this.props.store.dispatch(user.updatePerson(items));
+    updateItem(index, item) {
+        console.log("update item")
+        console.log(item);
+        console.log(this.props.items);
+
+        this.props.updatePerson(index, item)
+        console.log(this.props.items)
         this.props.navigator.pop();
     }
 
     addItemFunc(item) {
         this.props.addPerson(item);
         this.props.navigator.pop();
-
     }
 
     addItem(item) {
@@ -86,8 +73,7 @@ class PersonListContainerClass extends React.Component {
             ident: 'PersonAdd',
             passProps: {add: this.addItemFunc}
         });
-        // this.props.addPerson(item);
-        // this.props.navigator.pop();
+
     }
 
 
@@ -96,16 +82,7 @@ class PersonListContainerClass extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                {/* <TouchableOpacity
-                    underlayColor='#99d9f4'
-                    onPress={this.addItem}>
-                    <Image source={require('../../img/plus.png')}/>
-                    </TouchableOpacity>
 
-                    <Text>Team members</Text>
-                    <Text>You have {this.props.items.length} team members.</Text>
-
-                <Text>____________</Text> */}
                 <PersonList
                     items={this.props.items}
                     onHeaderAdd={this.addItem}
