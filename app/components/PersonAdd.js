@@ -12,23 +12,22 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     StatusBar,
-    ScrollView
+    ScrollView,
+    Picker
 } from 'react-native'
 
 import  MultipleChoice  from 'react-native-multiple-choice'
-
 
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
 
 var Person = t.struct({
-    firstName: t.Str,
-    lastName: t.Str,
-    email: t.Str,
-    phoneNumber: t.Str,
+    firstName: t.String,
+    lastName: t.String,
+    email: t.String,
+    phoneNumber: t.String,
 });
-
 
 var options = {
     auto: 'none', // no default labels/placeholders
@@ -57,30 +56,24 @@ var options = {
     }
 }
 
+class PersonAdd extends React.Component {
 
-class PersonEdit extends React.Component {
+
     constructor() {
         super();
-        this.onUpdate = this.onUpdate.bind(this);
-        this.onDelete = this.onDelete.bind(this);
+        this.onAdd=this.onAdd.bind(this);
+        this.isAdmin = false;
     }
 
-    onUpdate() {
+    onAdd() {
         var value = this.refs.form.getValue();
-        alert(this.props.id);
-
+    
         if (value) {
-            this.props.update(Object.assign({}, value, {isAdmin: this.isAdmin}), this.props.id);
+            this.props.add(Object.assign({}, value, {isAdmin: this.isAdmin}));
         }
-        console.log(this.ident);
     }
 
-    onDelete() {
-        console.log(this.props.id);
-        this.props.delete(this.props.id);
-    }
-
-    roleToBool(msg) {
+    selectRole(msg) {
         if (msg === 'Admin - Can delete memebers') {
             this.isAdmin = true;
         } else if (msg === 'Regular - Can\'t delete members') {
@@ -88,19 +81,7 @@ class PersonEdit extends React.Component {
         }
     }
 
-    boolToRole(bool) {
-        if (bool) {
-            return 'Admin - Can delete memebers'
-        } else {
-            return 'Regular - Can\'t delete members'
-        }
-
-    }
-
     render() {
-        this.isAdmin = this.props.item.isAdmin;
-
-
         return (
             <View>
 
@@ -111,46 +92,48 @@ class PersonEdit extends React.Component {
                 </TouchableOpacity>
 
                 <Text>Info</Text>
-
                 <Form
                     ref="form"
                     type={Person}
                     onChange={this._onChange}
-                    options={options}
-                    value={this.props.item} />
+                    options={options}   />
 
                 <Text>Role</Text>
 
                 <MultipleChoice
                     options={[
-                            'Regular - Can\'t delete members',
-                            'Admin - Can delete memebers'
+                        'Regular - Can\'t delete members',
+                        'Admin - Can delete memebers'
                     ]}
-                    selectedOptions={[this.boolToRole(this.props.item.isAdmin)]}
-                    onSelection={(option) => this.roleToBool(option)}
+                    selectedOptions={['Regular - Can\'t delete members']}
+                    onSelection={(option) => this.selectRole(option)}
                     maxSelectedOptions={1}
 
                 />
 
-                {/* save  */}
-                <TouchableOpacity>
+
+                <TouchableOpacity style={styles.saveButton}>
                     <Button
 
-                        onPress={this.onUpdate}
+                        onPress={this.onAdd}
                         title="Save"
                     />
+
                 </TouchableOpacity>
 
-                {/* delete */}
-                <TouchableOpacity>
-                    <Button
-                        onPress={this.onDelete}
-                        title="Delete"
-                    />
-                </TouchableOpacity>
+
+
             </View>
         )
     }
 }
 
-module.exports = PersonEdit
+const styles = StyleSheet.create({
+    saveButton: {
+        height: 36,
+        width: 70,
+        marginLeft: 10,
+    }
+});
+
+module.exports = PersonAdd

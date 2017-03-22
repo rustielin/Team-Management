@@ -12,6 +12,7 @@ import _ from 'lodash'
 import PersonListContainerClass from './app/components/PersonListContainer'
 import PersonList from './app/components/PersonList'
 import PersonEdit from './app/components/PersonEdit'
+import PersonAdd from './app/components/PersonAdd'
 import Person from './app/components/Person'
 
 import reducer from './app/reducers'
@@ -51,13 +52,17 @@ class teammanager extends Component {
         switch(route.ident) {
             case "PersonListContainerClass":
                 return (
-                    <PersonListContainerClass {...globalNavigatorProps} />
+                    // <PersonListContainerClass {...globalNavigatorProps, items: [{txt: 'aaaaaa', completed: true}]} />
+                    <PersonListContainerClass {...Object.assign({}, globalNavigatorProps, route.items)} />
                 )
 
             case "PersonEdit":
-
                 return (
                     <PersonEdit {...Object.assign({}, globalNavigatorProps, route.passProps)} />
+                )
+            case "PersonAdd":
+                return (
+                    <PersonAdd {...Object.assign({}, globalNavigatorProps, route.passProps)} />
                 )
 
             default:
@@ -72,7 +77,10 @@ class teammanager extends Component {
     return (
         <Provider store={store}>
             <Navigator
-                initialRoute={{ident: "PersonListContainerClass"}}
+                initialRoute={{ident: "PersonListContainerClass",
+
+                    items: [{txt: 'aaaaaa', completed: true}]
+                }}
                 ref="appNavigator"
                 renderScene={this._renderScene}
             />

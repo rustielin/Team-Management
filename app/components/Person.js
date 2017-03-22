@@ -4,39 +4,54 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableHighlight,
+    TouchableOpacity,
     Image
 } from 'react-native';
+
+import _ from 'lodash'
+
 
 class Person extends React.Component {
     render() {
         // var person = this.props.person
-        var item = this.props.item;
+        var person = this.props.item;
+
+        let admin = null;
+        if (person.isAdmin) {
+            admin = '(admin)'
+        } else {
+            admin = ''
+        }
+
         return (
             <View>
-                <TouchableHighlight
+                <TouchableOpacity
                     onPress={this.props.onPress}>
                     <View>
                         <Text>
-                            {/* {`${_.capitalize(person.firstName)} ${_.capitalize(person.lastName)}`} */}
-
-                            {item.txt}
+                            {`${_.capitalize(person.firstName)} ${_.capitalize(person.lastName)}`} {admin}
+                        </Text>
+                        <Text>
+                            {person.phoneNumber}
+                        </Text>
+                        <Text>
+                            {person.email}
+                            
                         </Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         )
     }
 }
 
-// TODO: propTypes later and also rename file?
-// Person.propTypes = {
-//     onPress: PropTypes.func.isRequired,
-//     firstName: PropTypes.string.isRequired,
-//     lastName: PropTypes.string.isRequired,
-//     email: PropTypes.string.isRequired,
-//     phoneNumber: PropTypes.string.isRequired,
-//     isAdmin: PropTypes.bool.isRequired
-// }
+Person.propTypes = {
+    onPress: PropTypes.func.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+    isAdmin: PropTypes.bool.isRequired
+}
 
 module.exports = Person

@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     StatusBar,
-    ScrollView
+    ScrollView,
+    BackAndroid
 } from 'react-native'
 
 import PersonList from './PersonList'
@@ -23,74 +24,128 @@ import ActionCreators from '../actions'
 
 import * as user from '../actions/userActions'
 
+const boundUpdatePerson = (index, item) => dispatch(updatePerson(index, item))
+
 class PersonListContainerClass extends React.Component {
 
     constructor(props) {
         super(props);
+        this.addItem = this.addItem.bind(this);
+        this.addItemFunc = this.addItemFunc.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
         this.openItem = this.openItem.bind(this);
-        // just the initial items
-        this.state={...this.state, items: [{txt: 'aaa'}]};
     }
+
+    openItem(rowData, rowID) {
+        console.log("Opening Item")
+
+        this.props.navigator.push({
+            ident: 'PersonEdit',
+            passProps: {item: rowData, id: rowID, update: this.updateItem, delete: this.deleteItem}
+        });
+    }
+
     deleteItem(index) {
-        var items = this.state.items;
-        items.splice(index, 1);
-        this.setState({items: items})
+        // var items = this.state.items;
+        // items.splice(index, 1);
+        // this.setState({items: items})
+        this.props.deletePerson(index)
+        this.props.navigator.pop();
+
     }
 
     updateItem(item, index) {
-        var items = this.state.items;
-        if (index) {
+        // var items = this.state.items;
+        // if (index) {
             // update
-            this.props.updatePerson(index, item, items);
-        }
-        else {
-            // add
-            // this.props.addPerson(item, items);
-            this.props.addPerson(item, items);
-
-        }
+            // this.props.updatePerson(index, item, this.props.items);
+            this.props.updatePerson(index, item)
+        // }
+        // else {
+        //     // add
+        //     // this.props.addPerson(item, items);
+        //     this.props.addPerson(item);
+        //
+        // }
         // this.setState({items: items});
         // this.props.store.dispatch(user.updatePerson(items));
         this.props.navigator.pop();
     }
 
-    openItem(rowData, rowID) {
-        console.log("boboboob")
+    addItemFunc(item) {
+        this.props.addPerson(item);
+        this.props.navigator.pop();
+
+    }
+
+    addItem(item) {
+        console.log("Add Item");
 
         this.props.navigator.push({
-            ident: 'PersonEdit',
-            passProps: {item: rowData, id: rowID, update: this.updateItem}
+            ident: 'PersonAdd',
+            passProps: {add: this.addItemFunc}
         });
+        // this.props.addPerson(item);
+        // this.props.navigator.pop();
     }
+
+
+
 
     render() {
         return (
             <View style={{flex: 1}}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     underlayColor='#99d9f4'
-                    onPress={this.openItem}>
+                    onPress={this.addItem}>
                     <Image source={require('../../img/plus.png')}/>
-                </TouchableOpacity>
+                    </TouchableOpacity>
 
-                <Text>Team members</Text>
-                <Text>You have team members.</Text>
+                    <Text>Team members</Text>
+                    <Text>You have {this.props.items.length} team members.</Text>
+
+                <Text>____________</Text> */}
                 <PersonList
-                    items={this.state.items}
-                    onPressItem={this.openItem} />
+                    items={this.props.items}
+                    onHeaderAdd={this.addItem}
+                    onPressItem={this.openItem}
+                />
             </View>
         )
     }
 }
 
-// dispatch to entire application
-function mapDispatchToProps(dispatch) {
+
+
+const mapStateToProps = (state) => {
+    return {
+        items: state.items
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(ActionCreators, dispatch);
 }
 
+const PersonListContainer = connect (
+    mapStateToProps,
+    mapDispatchToProps
+)(PersonListContainerClass);
+
+export default PersonListContainer;
+
+// dispatch to entire application
+// function mapDispatchToProps(dispatch) {
+//     return bindActionCreators(ActionCreators, dispatch);
+// }
+
 // module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);module.exports = connect(() => { return {} }, mapDispatchToProps)(PersonListContainer);
-export default connect(() => { return {} }, mapDispatchToProps)(PersonListContainerClass);
+// export default connect((state) => {
+//     return {
+//         items: state.items
+//     }
+// }, mapDispatchToProps)(PersonListContainerClass);
 // const PersonListContainer = connect()(PersonListContainerClass)
 //
 // export default PersonListContainer
